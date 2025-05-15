@@ -1,0 +1,13 @@
+Resources:
+  EC2Instance:
+    Type: "AWS::EC2::Instance"
+    Properties:
+      InstanceType: t2.micro
+      ImageId: ami-06c8f2ec674c67112  # Amazon Linux 2023 AMI
+      KeyName: WebServerKey2
+      SecurityGroupIds:
+        - sg-07be85c3651c180c0
+      SubnetId: subnet-0125fb6aacf2cd5ae
+      Tags:
+        - Key: Name
+          Value: WebServerInMyVPC

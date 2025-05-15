@@ -1,0 +1,21 @@
+Resources:
+  S3LoggerFunction:
+    Type: "AWS::Lambda::Function"
+    Properties:
+      Handler: index.lambda_handler
+      Role: arn:aws:iam::123456789012:role/lambda-role  # Replace with your actual Lambda IAM role ARN
+      Code:
+        ZipFile: |
+          import json
+          import boto3
+          import logging
+
+          logger = logging.getLogger()
+          logger.setLevel(logging.INFO)
+
+          def lambda_handler(event, context):
+              bucket = event['Records'][0]['s3']['bucket']['name']
+              key = event['Records'][0]['s3']['object']['key']
+              logger.info(f"New file uploaded: {key} in bucket: {bucket}")
+              return {"statusCode": 200, "body": json.dumps("Success")}
+      Runtime: python3.8
